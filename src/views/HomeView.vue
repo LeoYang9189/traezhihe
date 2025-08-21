@@ -102,13 +102,17 @@ onMounted(() => {
 <template>
   <div class="home-page">
     <!-- 首屏Banner区域 -->
-    <section class="hero-section bg-gradient-to-br from-indigo-900 via-indigo-800 to-blue-900 text-white relative overflow-hidden">
-      <!-- 背景装饰 -->
-      <div class="absolute inset-0 bg-black opacity-20"></div>
+    <section class="hero-section relative overflow-hidden text-white">
+      <!-- 背景图片 -->
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/banner.png')"></div>
+      
+      <!-- 黑色蒙版 -->
+      <div class="absolute inset-0 bg-black/30"></div>
+      
+      <!-- 装饰性光效 -->
       <div class="absolute inset-0">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div class="absolute top-40 right-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-2000"></div>
-        <div class="absolute bottom-20 left-1/2 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse animation-delay-4000"></div>
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-blue-400/20 via-purple-500/10 to-transparent rounded-full filter blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-radial from-indigo-400/15 via-blue-500/8 to-transparent rounded-full filter blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
       </div>
       
       <div class="container-custom relative z-10">
@@ -146,36 +150,15 @@ onMounted(() => {
               <router-link to="/business" class="btn-primary bg-white text-indigo-600 hover:bg-gray-100">
                 了解业务
               </router-link>
-              <router-link to="/contact" class="btn-secondary border-white text-white hover:bg-white hover:text-indigo-600">
+              <router-link to="/contact" class="btn-primary bg-blue-600 text-white hover:bg-blue-700">
                 联系我们
               </router-link>
             </div>
           </div>
           
-          <!-- 右侧二维码和装饰 -->
+          <!-- 右侧装饰 -->
           <div class="flex flex-col items-center lg:items-end">
-            <!-- 公众号二维码 -->
-            <div class="bg-white rounded-2xl p-6 shadow-2xl mb-8">
-              <div class="text-center">
-                <div class="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                  <!-- 这里应该放置真实的二维码图片 -->
-                  <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                  </svg>
-                </div>
-                <p class="text-gray-600 font-medium">扫码关注公众号</p>
-                <p class="text-gray-400 text-sm">获取最新资讯</p>
-              </div>
-            </div>
-            
-            <!-- 装饰元素 -->
-            <div class="hidden lg:block">
-              <div class="flex space-x-4">
-                <div class="w-3 h-3 bg-white rounded-full opacity-60 animate-bounce"></div>
-                <div class="w-3 h-3 bg-white rounded-full opacity-60 animate-bounce animation-delay-200"></div>
-                <div class="w-3 h-3 bg-white rounded-full opacity-60 animate-bounce animation-delay-400"></div>
-              </div>
-            </div>
+            <!-- 装饰元素已移除 -->
           </div>
         </div>
       </div>
@@ -337,10 +320,132 @@ onMounted(() => {
         </div>
       </div>
     </section>
+
+    <!-- 固定定位的二维码 -->
+    <div class="fixed bottom-6 right-6 z-50">
+      <div class="bg-white rounded-2xl p-4 shadow-2xl border border-gray-100 hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
+        <div class="text-center">
+          <div class="w-24 h-24 bg-gray-200 rounded-lg flex items-center justify-center mb-3 mx-auto">
+            <!-- 这里应该放置真实的二维码图片 -->
+            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+            </svg>
+          </div>
+          <p class="text-gray-700 font-medium text-sm">扫码关注</p>
+          <p class="text-gray-500 text-xs">获取资讯</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
+/* 自定义动画 */
+@keyframes slide-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes slide-left {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100vw); }
+}
+
+@keyframes slide-down {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(-100vh); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(45deg); }
+  to { transform: rotate(405deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(12deg); }
+  to { transform: rotate(-348deg); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(20px) rotate(-5deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+/* 动画类 */
+.animate-slide-right {
+  animation: slide-right 8s linear infinite;
+}
+
+.animate-slide-left {
+  animation: slide-left 8s linear infinite;
+}
+
+.animate-slide-down {
+  animation: slide-down 10s linear infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 10s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+  animation: spin-reverse 15s linear infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 8s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* 径向渐变背景 */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .hero-section .absolute.w-96 {
+    width: 16rem;
+    height: 16rem;
+  }
+  
+  .hero-section .absolute.w-80 {
+    width: 12rem;
+    height: 12rem;
+  }
+  
+  .hero-section .absolute.w-72 {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
 /* 动画延迟类 */
 .animation-delay-200 {
   animation-delay: 0.2s;
